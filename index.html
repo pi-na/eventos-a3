@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos A3 — AreaTres Workplace</title>
+    <meta name="description" content="Organizá tu evento en AreaTres Workplace. +1.000m² de espacios versátiles en Palermo Soho. Eventos corporativos, hackatones, capacitaciones y más.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           AREA TRES EVENTOS — ESTILOS PRINCIPALES
+           Branding: Negro #1C1C1C + Blanco + Magenta accent
+           Font: Inter (fallback Helvetica Neue)
+           ============================================ */
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-black: #1C1C1C;
+            --color-white: #FFFFFF;
+            --color-gray-50: #F8F8F8;
+            --color-gray-100: #F0F0F0;
+            --color-gray-200: #E0E0E0;
+            --color-gray-300: #BDBDBD;
+            --color-gray-500: #757575;
+            --color-gray-700: #424242;
+            --color-accent: #D6336C;
+            --color-accent-light: #E8458B;
+            --font-main: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            --max-width: 1200px;
+            --nav-height: 72px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-black);
+            background: var(--color-white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- NAVBAR ---- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-gray-200);
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        }
+
+        .navbar-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--color-black);
+        }
+
+        .logo-svg {
+            width: 44px;
+            height: 44px;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-black);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        .nav-cta {
+            background: var(--color-black);
+            color: var(--color-white) !important;
+            padding: 10px 24px;
+            border-radius: 300px;
+            font-weight: 600;
+            transition: transform 0.2s, opacity 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            transform: scale(1.03);
+            opacity: 1 !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-black);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            margin-top: var(--nav-height);
+            min-height: calc(100vh - var(--nav-height));
+            background: var(--color-black);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, rgba(28,28,28,0.8), transparent);
+        }
+
+        .hero-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 80px 24px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 300px;
+            color: var(--color-white);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-weight: 800;
+            color: var(--color-white);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            max-width: 700px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .hero-address {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 36px;
+        }
+
+        .hero-address svg {
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 300px;
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-white {
+            background: var(--color-white);
+            color: var(--color-black);
+        }
+
+        .btn-white:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-dark {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .btn-dark:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-black);
+            border: 1.5px solid var(--color-gray-300);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-black);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 32px;
+            left: 24px;
+            z-index: 3;
+            color: rgba(255,255,255,0.4);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* ---- SECTIONS ---- */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-gray-500);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 48px;
+        }
+
+        .bg-light {
+            background: var(--color-gray-50);
+        }
+
+        /* ---- INTRO ---- */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .event-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 32px;
+        }
+
+        .event-tag {
+            padding: 8px 20px;
+            background: var(--color-gray-100);
+            border-radius: 300px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-gray-700);
+        }
+
+        .stat-block {
+            display: flex;
+            gap: 48px;
+            margin-top: 40px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--color-black);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-gray-500);
+            margin-top: 4px;
+        }
+
+        .intro-image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .intro-image-grid .img-placeholder {
+            border-radius: 12px;
+            aspect-ratio: 1;
+        }
+
+        .intro-image-grid .img-placeholder:first-child {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        /* ---- SPACE CARDS ---- */
+        .space-section {
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        .space-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .space-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+            margin-bottom: 48px;
+        }
+
+        .space-name {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .space-description {
+            font-size: 1.05rem;
+            color: var(--color-gray-500);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .space-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: var(--color-gray-700);
+        }
+
+        .meta-item svg {
+            flex-shrink: 0;
+            color: var(--color-gray-500);
+        }
+
+        .space-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .img-placeholder {
+            background: var(--color-gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-gray-300);
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--color-gray-100), var(--color-gray-200));
+        }
+
+        .img-placeholder span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .img-placeholder.large {
+            grid-column: span 2;
+            min-height: 280px;
+        }
+
+        /* ---- PRICING TABLES ---- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .pricing-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .bg-light .pricing-card {
+            background: var(--color-white);
+        }
+
+        .pricing-card-header {
+            padding: 24px 28px 16px;
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        .pricing-card-header h4 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-gray-500);
+            margin-bottom: 4px;
+        }
+
+        .pricing-card-header h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .pricing-rows {
+            padding: 8px 0;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 28px;
+            transition: background 0.15s;
+        }
+
+        .pricing-row:hover {
+            background: var(--color-gray-50);
+        }
+
+        .pricing-row-name {
+            font-size: 0.925rem;
+            font-weight: 500;
+            color: var(--color-black);
+        }
+
+        .pricing-row-value {
+            font-size: 0.925rem;
+            font-weight: 600;
+            color: var(--color-black);
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .pricing-row-value .iva {
+            font-size: 0.75rem;
+            color: var(--color-gray-500);
+            font-weight: 400;
+        }
+
+        .loading-price {
+            color: var(--color-gray-300);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .pricing-note {
+            padding: 12px 28px 20px;
+            font-size: 0.8rem;
+            color: var(--color-gray-500);
+            border-top: 1px solid var(--color-gray-100);
+        }
+
+        /* ---- EQUIPMENT / CAPACITY ---- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .detail-block {
+            padding: 28px;
+            background: var(--color-gray-50);
+            border-radius: 16px;
+        }
+
+        .bg-light .detail-block {
+            background: var(--color-white);
+        }
+
+        .detail-block h4 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-gray-500);
+            margin-bottom: 16px;
+        }
+
+        .detail-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .detail-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--color-gray-700);
+            line-height: 1.5;
+        }
+
+        .detail-list li svg {
+            flex-shrink: 0;
+            margin-top: 3px;
+            color: var(--color-accent);
+        }
+
+        .capacity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .capacity-item {
+            text-align: center;
+            padding: 20px 12px;
+            background: var(--color-gray-50);
+            border-radius: 12px;
+        }
+
+        .bg-light .capacity-item {
+            background: var(--color-white);
+        }
+
+        .capacity-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color-black);
+            letter-spacing: -0.02em;
+        }
+
+        .capacity-label {
+            font-size: 0.8rem;
+            color: var(--color-gray-500);
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        /* ---- CATERING TABLE ---- */
+        .catering-table-wrapper {
+            overflow-x: auto;
+            margin-top: 32px;
+            border: 1px solid var(--color-gray-200);
+            border-radius: 16px;
+        }
+
+        .catering-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .catering-table thead {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .catering-table th {
+            padding: 16px 20px;
+            font-weight: 600;
+            text-align: left;
+            font-size: 0.8rem;
+            letter-spacing: 0.03em;
+        }
+
+        .catering-table th:not(:first-child) {
+            text-align: center;
+        }
+
+        .catering-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--color-gray-100);
+        }
+
+        .catering-table td:not(:first-child) {
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .catering-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .catering-table tbody tr:hover {
+            background: var(--color-gray-50);
+        }
+
+        .catering-table .service-name {
+            font-weight: 600;
+        }
+
+        /* ---- CONDITIONS / PAYMENT ---- */
+        .info-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .info-card {
+            padding: 32px;
+            border: 1px solid var(--color-gray-200);
+            border-radius: 16px;
+            background: var(--color-white);
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card h3 svg {
+            color: var(--color-accent);
+        }
+
+        .info-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-card li {
+            font-size: 0.9rem;
+            color: var(--color-gray-700);
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .info-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--color-gray-300);
+        }
+
+        /* ---- CTA SECTION ---- */
+        .cta-section {
+            background: var(--color-black);
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        .cta-section .section-title {
+            color: var(--color-white);
+            max-width: 600px;
+            margin: 0 auto 16px;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.6);
+            max-width: 500px;
+            margin: 0 auto 12px;
+            font-size: 1.05rem;
+        }
+
+        .cta-email {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-white);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 32px;
+            padding-bottom: 2px;
+            border-bottom: 2px solid var(--color-accent);
+        }
+
+        .cta-email:hover {
+            border-bottom-color: var(--color-white);
+        }
+
+        /* ---- FOOTER ---- */
+        .footer {
+            padding: 32px 24px;
+            border-top: 1px solid var(--color-gray-200);
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: var(--color-gray-500);
+        }
+
+        .footer a {
+            color: var(--color-gray-700);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--color-black);
+        }
+
+        /* ---- FADE IN ANIMATIONS ---- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---- AVAILABILITY BADGE ---- */
+        .availability-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(214, 51, 108, 0.08);
+            border-radius: 300px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            margin-top: 8px;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--color-white);
+                flex-direction: column;
+                padding: 32px 24px;
+                gap: 20px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .intro-grid,
+            .space-header,
+            .pricing-grid,
+            .details-grid,
+            .info-cards {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .stat-block {
+                gap: 32px;
+            }
+
+            section {
+                padding: 64px 20px;
+            }
+
+            .hero-inner {
+                padding: 60px 20px;
+            }
+
+            .capacity-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .stat-block {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .space-images {
+                grid-template-columns: 1fr;
+            }
+
+            .img-placeholder.large {
+                grid-column: span 1;
+            }
+
+            .capacity-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .catering-table {
+                font-size: 0.8rem;
+            }
+
+            .catering-table th,
+            .catering-table td {
+                padding: 12px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="logo-link">
+                <img src="fotos/logo-a3.png" alt="AreaTres" class="logo-svg" style="width:44px;height:auto;">
+                <span class="logo-text">Eventos</span>
+            </a>
+
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#espacios">Espacios</a></li>
+                <li><a href="#basement">Basement</a></li>
+                <li><a href="#ground-floor">Ground Floor</a></li>
+                <li><a href="#jardin">Jardín</a></li>
+                <li><a href="#sala-reuniones">Sala 301</a></li>
+                <li><a href="#catering">Catering</a></li>
+                <li><a href="#condiciones">Info</a></li>
+                <li><a href="#contacto" class="nav-cta">Contactanos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero" style="background:linear-gradient(rgba(28,28,28,0.7),rgba(28,28,28,0.85)),url('fotos/hero-edificio.jpg') center/cover no-repeat;">
+        <div class="hero-inner">
+            <div class="hero-badge">AreaTres Workplace</div>
+            <h1>Organizá tu evento, a tu manera, en A3</h1>
+            <p>Más de 1.000 m² de espacios dinámicos y versátiles, tanto indoor como al aire libre, en el corazón de Palermo Soho.</p>
+            <p class="hero-address">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                El Salvador 5218, Palermo Soho, CABA
+            </p>
+            <a href="#espacios" class="btn btn-white">Explorá los espacios →</a>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5"/><path d="M7 6l5 5 5-5"/></svg>
+        </div>
+    </section>
+
+    <!-- ============ INTRO ============ -->
+    <section id="espacios" class="fade-in">
+        <div class="section-inner">
+            <div class="intro-grid">
+                <div>
+                    <span class="section-label">Nuestros espacios</span>
+                    <h2 class="section-title">Espacios que se adaptan a lo que necesitás</h2>
+                    <p class="space-description">Contamos con espacios indoor y al aire libre, diseñados para acompañar cualquier tipo de evento. Vos elegís el formato, nosotros nos encargamos del resto.</p>
+
+                    <div class="event-types">
+                        <span class="event-tag">Eventos corporativos</span>
+                        <span class="event-tag">Hackatones</span>
+                        <span class="event-tag">Capacitaciones</span>
+                        <span class="event-tag">Cocktails</span>
+                        <span class="event-tag">Filmaciones</span>
+                        <span class="event-tag">Workshops</span>
+                        <span class="event-tag">Charlas</span>
+                        <span class="event-tag">After office</span>
+                    </div>
+
+                    <div class="stat-block">
+                        <div>
+                            <div class="stat-number">+1.000</div>
+                            <div class="stat-label">metros cuadrados</div>
+                        </div>
+                        <div>
+                            <div class="stat-number">250</div>
+                            <div class="stat-label">capacidad máxima</div>
+                        </div>
+                        <div>
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">espacios distintos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-image-grid">
+                    <img src="fotos/intro-1.jpg" alt="Jardín A3" style="border-radius:12px;width:100%;height:100%;object-fit:cover;grid-row:span 2;">
+                    <img src="fotos/intro-2.jpg" alt="Evento A3" style="border-radius:12px;width:100%;height:100%;object-fit:cover;">
+                    <img src="fotos/intro-3.jpg" alt="Hackaton A3" style="border-radius:12px;width:100%;height:100%;object-fit:cover;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ BASEMENT ============ -->
+    <section id="basement" class="space-section bg-light fade-in">
+        <div class="section-inner">
+            <div class="space-header">
+                <div>
+                    <span class="section-label">Espacio 01</span>
+                    <h2 class="space-name">Basement</h2>
+                    <p class="space-description">Espacio flexible ideal para workshops, capacitaciones, charlas y encuentros colaborativos. Capacidad para hasta 120 personas con múltiple equipamiento audiovisual incluido.</p>
+                    <div class="space-meta">
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Hasta 120 personas
+                        </div>
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            Mínimo 4 horas
+                        </div>
+                    </div>
+                </div>
+                <div class="space-images">
+                    <img src="fotos/basement-1.jpg" alt="Basement A3 — Auditorio" style="border-radius:12px;width:100%;object-fit:cover;grid-column:span 2;max-height:280px;">
+                    <img src="fotos/basement-2.jpg" alt="Basement A3 — Sala" style="border-radius:12px;width:100%;object-fit:cover;min-height:180px;">
+                    <img src="fotos/basement-3.jpg" alt="Basement A3 — Evento" style="border-radius:12px;width:100%;object-fit:cover;min-height:180px;">
+                </div>
+            </div>
+
+            <!-- Precios Basement -->
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-card-header">
+                        <h4>Alquiler por hora</h4>
+                        <h3>Precios Basement</h3>
+                    </div>
+                    <div class="pricing-rows" id="pricing-basement">
+                        <div class="pricing-row">
+                            <span class="pricing-row-name">Cargando...</span>
+                            <span class="pricing-row-value loading-price">—</span>
+                        </div>
+                    </div>
+                    <div class="pricing-note">Todos los valores son por hora + IVA</div>
+                </div>
+
+                <div>
+                    <div class="details-grid" style="margin-top:0;">
+                        <div class="detail-block">
+                            <h4>Equipamiento incluido</h4>
+                            <ul class="detail-list">
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Dos proyectores HD con conexión HDMI
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Dos monitores de 55" HD
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Dos micrófonos inalámbricos + sistema de sonido
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h4 style="font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-gray-500);margin:24px 0 16px;">Capacidad según armado</h4>
+                    <div class="capacity-grid">
+                        <div class="capacity-item">
+                            <div class="capacity-number">120</div>
+                            <div class="capacity-label">Auditorio<br>sala completa</div>
+                        </div>
+                        <div class="capacity-item">
+                            <div class="capacity-number">50</div>
+                            <div class="capacity-label">Auditorio<br>media sala</div>
+                        </div>
+                        <div class="capacity-item">
+                            <div class="capacity-number">96</div>
+                            <div class="capacity-label">Mesas grupales<br>sala completa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GROUND FLOOR ============ -->
+    <section id="ground-floor" class="space-section fade-in">
+        <div class="section-inner">
+            <div class="space-header">
+                <div>
+                    <span class="section-label">Espacio 02</span>
+                    <h2 class="space-name">Ground Floor</h2>
+                    <p class="space-description">Ideal para presentaciones exclusivas, cócteles, proyecciones o encuentros nocturnos. Un espacio versátil con bar, living y acceso al jardín.</p>
+                    <div class="space-meta">
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Hasta 200 personas (cocktail)
+                        </div>
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            Mínimo 4 horas
+                        </div>
+                    </div>
+                    <div class="availability-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        L-V desde 19:30 hs · Sáb, dom y feriados: todo el día
+                    </div>
+                </div>
+                <div class="space-images">
+                    <img src="fotos/ground-floor-1.jpg" alt="Ground Floor A3 — Evento" style="border-radius:12px;width:100%;object-fit:cover;grid-column:span 2;max-height:280px;">
+                    <img src="fotos/ground-floor-2.jpg" alt="Ground Floor A3 — Bar" style="border-radius:12px;width:100%;object-fit:cover;min-height:180px;">
+                    <img src="fotos/ground-floor-3.jpg" alt="Ground Floor A3 — Interior" style="border-radius:12px;width:100%;object-fit:cover;min-height:180px;">
+                </div>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-card-header">
+                        <h4>Alquiler por hora</h4>
+                        <h3>Precios Ground Floor</h3>
+                    </div>
+                    <div class="pricing-rows" id="pricing-ground_floor">
+                        <div class="pricing-row">
+                            <span class="pricing-row-name">Cargando...</span>
+                            <span class="pricing-row-value loading-price">—</span>
+                        </div>
+                    </div>
+                    <div class="pricing-note">Todos los valores son por hora + IVA</div>
+                </div>
+
+                <div>
+                    <div class="details-grid" style="margin-top:0;">
+                        <div class="detail-block">
+                            <h4>Equipamiento incluido</h4>
+                            <ul class="detail-list">
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Proyector HD con conexión HDMI
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Dos micrófonos inalámbricos + sistema de sonido
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Mobiliario básico
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h4 style="font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-gray-500);margin:24px 0 16px;">Capacidad según armado</h4>
+                    <div class="capacity-grid">
+                        <div class="capacity-item">
+                            <div class="capacity-number">100</div>
+                            <div class="capacity-label">Auditorio</div>
+                        </div>
+                        <div class="capacity-item">
+                            <div class="capacity-number">200</div>
+                            <div class="capacity-label">Cocktail</div>
+                        </div>
+                        <div class="capacity-item">
+                            <div class="capacity-number">70</div>
+                            <div class="capacity-label">Mesas grupales</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ JARDÍN ============ -->
+    <section id="jardin" class="space-section bg-light fade-in">
+        <div class="section-inner">
+            <div class="space-header">
+                <div>
+                    <span class="section-label">Espacio 03</span>
+                    <h2 class="space-name">Jardín</h2>
+                    <p class="space-description">Un oasis verde en el corazón de Palermo Soho. Ideal para encuentros distendidos, cócteles o afters. Galerías cubiertas y jardín al aire libre.</p>
+                    <div class="space-meta">
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Hasta 250 personas (PB completa)
+                        </div>
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            Mínimo 4 horas
+                        </div>
+                    </div>
+                    <div class="availability-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        L-V desde 19:30 hs · Sáb, dom y feriados: todo el día
+                    </div>
+                </div>
+                <div class="space-images">
+                    <img src="fotos/jardin-1.jpg" alt="Jardín A3 — Vista aérea" style="border-radius:12px;width:100%;object-fit:cover;grid-column:span 2;max-height:280px;">
+                    <img src="fotos/jardin-2.jpg" alt="Jardín A3 — Evento" style="border-radius:12px;width:100%;object-fit:cover;min-height:180px;">
+                    <img src="fotos/jardin-3.jpg" alt="Jardín A3 — Noche" style="border-radius:12px;width:100%;object-fit:cover;min-height:180px;">
+                </div>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-card-header">
+                        <h4>Alquiler por hora</h4>
+                        <h3>Precios Jardín</h3>
+                    </div>
+                    <div class="pricing-rows" id="pricing-jardin">
+                        <div class="pricing-row">
+                            <span class="pricing-row-name">Cargando...</span>
+                            <span class="pricing-row-value loading-price">—</span>
+                        </div>
+                    </div>
+                    <div class="pricing-note">Todos los valores son por hora + IVA</div>
+                </div>
+
+                <div>
+                    <h4 style="font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-gray-500);margin:0 0 16px;">Capacidad por sector</h4>
+                    <div class="capacity-grid">
+                        <div class="capacity-item">
+                            <div class="capacity-number">120</div>
+                            <div class="capacity-label">Galería + Jardín</div>
+                        </div>
+                        <div class="capacity-item">
+                            <div class="capacity-number">40</div>
+                            <div class="capacity-label">Galería trasera</div>
+                        </div>
+                        <div class="capacity-item">
+                            <div class="capacity-number">40</div>
+                            <div class="capacity-label">Galería frente</div>
+                        </div>
+                        <div class="capacity-item">
+                            <div class="capacity-number">250</div>
+                            <div class="capacity-label">PB completa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SALA DE REUNIONES ============ -->
+    <section id="sala-reuniones" class="space-section fade-in">
+        <div class="section-inner">
+            <div class="space-header">
+                <div>
+                    <span class="section-label">Espacio 04</span>
+                    <h2 class="space-name">Sala de Reuniones 301</h2>
+                    <p class="space-description">Espacio privado y amplio con mesa estilo directorio, cómodas sillas, kitchenette, baño privado y gran ventanal con balcón. Ideal para reuniones ejecutivas.</p>
+                    <div class="space-meta">
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Hasta 12 personas
+                        </div>
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            Mínimo 4 horas
+                        </div>
+                    </div>
+                </div>
+                <div class="space-images">
+                    <img src="fotos/sala-1.jpg" alt="Sala 301 A3 — Vista completa" style="border-radius:12px;width:100%;object-fit:cover;grid-column:span 2;max-height:280px;">
+                    <img src="fotos/sala-2.jpg" alt="Sala 301 A3 — Mesa" style="border-radius:12px;width:100%;object-fit:cover;min-height:180px;">
+                    <img src="fotos/sala-3.jpg" alt="Sala 301 A3 — Balcón" style="border-radius:12px;width:100%;object-fit:cover;min-height:180px;">
+                </div>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-card-header">
+                        <h4>Alquiler por hora</h4>
+                        <h3>Precio Sala 301</h3>
+                    </div>
+                    <div class="pricing-rows" id="pricing-sala_reuniones">
+                        <div class="pricing-row">
+                            <span class="pricing-row-name">Cargando...</span>
+                            <span class="pricing-row-value loading-price">—</span>
+                        </div>
+                    </div>
+                    <div class="pricing-note">Valor por hora + IVA</div>
+                </div>
+
+                <div class="detail-block">
+                    <h4>Equipamiento incluido</h4>
+                    <ul class="detail-list">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Televisor Ultra HD de 55" con Chromecast y conectores HDMI
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Pizarra blanca
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Estación de café con infusiones y agua fresca
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Baño privado
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Posibilidad de contratar servicio de catering
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CATERING ============ -->
+    <section id="catering" class="bg-light fade-in">
+        <div class="section-inner">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:48px;">
+                <div>
+                    <span class="section-label">Catering</span>
+                    <h2 class="section-title">Cafe by Paula</h2>
+                    <p class="space-description">Servicio de catering exclusivo para todos los eventos realizados en A3. Propuestas versátiles y de calidad, adaptadas a diferentes estilos y necesidades.</p>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                    <img src="fotos/catering-1.jpg" alt="Catering A3" style="border-radius:12px;width:100%;height:200px;object-fit:cover;grid-row:span 2;">
+                    <img src="fotos/catering-2.jpg" alt="Catering A3 — Buffet" style="border-radius:12px;width:100%;height:96px;object-fit:cover;">
+                    <img src="fotos/catering-3.jpg" alt="Catering A3 — Postres" style="border-radius:12px;width:100%;height:96px;object-fit:cover;">
+                </div>
+            </div>
+
+            <div class="catering-table-wrapper">
+                <table class="catering-table" id="catering-table">
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>20 a 39 pax</th>
+                            <th>40 a 55 pax</th>
+                            <th>56 a 75 pax</th>
+                            <th>80 a 100 pax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" style="text-align:center;color:var(--color-gray-300);font-style:italic;">Cargando precios...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top:16px;font-size:0.85rem;color:var(--color-gray-500);">Valores de referencia por persona + IVA. Requieren cotización a la fecha.</p>
+        </div>
+    </section>
+
+    <!-- ============ SERVICIOS COMPLEMENTARIOS ============ -->
+    <section class="fade-in">
+        <div class="section-inner">
+            <span class="section-label">Servicios extra</span>
+            <h2 class="section-title">Servicios complementarios</h2>
+            <p class="section-subtitle">Los espacios pueden potenciarse con servicios adicionales opcionales, a cotizar.</p>
+
+            <div class="details-grid">
+                <div class="detail-block">
+                    <h4>Catering personalizado</h4>
+                    <ul class="detail-list">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Menús a medida con Cafe by Paula
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Opciones para desayunos, almuerzos, coffee breaks y cocktails
+                        </li>
+                    </ul>
+                </div>
+                <div class="detail-block">
+                    <h4>Asistencia técnica</h4>
+                    <ul class="detail-list">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Soporte audiovisual completo
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Técnico en sitio durante el evento
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONDICIONES + FORMAS DE PAGO ============ -->
+    <section id="condiciones" class="bg-light fade-in">
+        <div class="section-inner">
+            <span class="section-label">Información importante</span>
+            <h2 class="section-title">Condiciones y formas de pago</h2>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        Condiciones generales
+                    </h3>
+                    <ul>
+                        <li>Tiempo mínimo de alquiler: 4 horas consecutivas.</li>
+                        <li>Los eventos deben pagarse completamente al menos 3 días hábiles antes de la fecha del evento.</li>
+                        <li>Las fechas están sujetas a disponibilidad y no se consideran reservadas hasta que se realice el pago del depósito.</li>
+                        <li>No se permite el ingreso de alimentos o bebidas externas. Si necesitás servicio de catering, podemos enviarte una cotización.</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                        Formas de pago
+                    </h3>
+                    <ul>
+                        <li>Transferencia bancaria</li>
+                        <li>Link de pago (Mercado Pago)</li>
+                        <li>Pagos desde el exterior: transferencia internacional (+USD 100)</li>
+                        <li>Tarjeta internacional: +7% sobre el total de la factura</li>
+                        <li>El evento debe estar abonado al 100% al menos 2 días antes de la fecha.</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Proceso de reserva
+                    </h3>
+                    <ul>
+                        <li>Escribinos a eventos@areatresworkplace.com</li>
+                        <li>Te enviamos una propuesta formal con los valores finales de alquiler y servicios adicionales</li>
+                        <li>Confirmás con el pago del depósito</li>
+                        <li>¡Listo! Nos encargamos del resto</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        Importante
+                    </h3>
+                    <ul>
+                        <li>Todos los precios están sujetos a actualización. Los valores publicados son de referencia.</li>
+                        <li>Cada evento recibe una cotización personalizada según fecha y requerimientos.</li>
+                        <li>Precios expresados en pesos argentinos + IVA.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA / CONTACTO ============ -->
+    <section id="contacto" class="cta-section fade-in">
+        <div class="section-inner" style="padding:20px 0;">
+            <h2 class="section-title">¿Querés organizar tu próximo evento con nosotros?</h2>
+            <p>Escribinos para recibir una propuesta personalizada o coordinar una visita.</p>
+            <a href="mailto:eventos@areatresworkplace.com" class="cta-email">eventos@areatresworkplace.com</a>
+            <br>
+            <a href="https://www.areatresworkplace.com" class="btn btn-white" target="_blank">Visitar areatresworkplace.com →</a>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <p>© 2026 <a href="https://www.areatresworkplace.com" target="_blank">AreaTres Workplace</a> · El Salvador 5218, Palermo Soho, CABA</p>
+    </footer>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+    (function() {
+        'use strict';
+
+        // =============================================
+        // CONFIGURACIÓN — CAMBIÁ ESTAS URLs
+        // =============================================
+        // Reemplazá con las URLs de tu Google Sheet publicada como CSV.
+        // Instrucciones: Google Sheets → Archivo → Compartir → Publicar en la web → CSV
+        const SHEETS_CONFIG = {
+            espacios: 'TU_URL_HOJA_ESPACIOS_AQUI',
+            catering: 'TU_URL_HOJA_CATERING_AQUI'
+        };
+
+        // =============================================
+        // PRECIOS FALLBACK (se usan si Google Sheets no carga)
+        // =============================================
+        const FALLBACK_ESPACIOS = [
+            { espacio: 'basement', formato: 'Media sala - 50 pax', precio: '$137.000 + IVA' },
+            { espacio: 'basement', formato: 'Sala completa - 120 pax', precio: '$238.000 + IVA' },
+            { espacio: 'basement', formato: 'Espacio adicional palier contiguo', precio: '$105.000 + IVA' },
+            { espacio: 'ground_floor', formato: 'Living', precio: '$395.000 + IVA' },
+            { espacio: 'ground_floor', formato: 'Sector bar / café', precio: '$135.000 + IVA' },
+            { espacio: 'ground_floor', formato: 'Planta baja completa (Cafe, living, 2 galerías + jardín)', precio: '$715.000 + IVA' },
+            { espacio: 'jardin', formato: 'Galería + Jardín', precio: '$384.000 + IVA' },
+            { espacio: 'jardin', formato: 'Galería trasera', precio: '$118.000 + IVA' },
+            { espacio: 'jardin', formato: 'Galería frente', precio: '$83.000 + IVA' },
+            { espacio: 'jardin', formato: 'Planta baja completa (Cafe, interior, 2 galerías + jardín)', precio: '$715.000 + IVA' },
+            { espacio: 'sala_reuniones', formato: 'Sala 301', precio: '$27.000 + IVA' }
+        ];
+
+        const FALLBACK_CATERING = [
+            { servicio: 'Jornada completa', '20a39': '$74.700 + IVA', '40a55': '$66.000 + IVA', '56a75': '$63.600 + IVA', '80a100': '$61.800 + IVA' },
+            { servicio: 'Estación de café continua', '20a39': '$17.820 + IVA', '40a55': '$16.440 + IVA', '56a75': '$15.000 + IVA', '80a100': '$14.400 + IVA' },
+            { servicio: 'Desayuno + Estación de café continua', '20a39': '$40.080 + IVA', '40a55': '$33.000 + IVA', '56a75': '$30.600 + IVA', '80a100': '$29.760 + IVA' },
+            { servicio: 'Almuerzo', '20a39': '$49.500 + IVA', '40a55': '$42.000 + IVA', '56a75': '$40.920 + IVA', '80a100': '$36.480 + IVA' },
+            { servicio: 'Pizza Party', '20a39': '$30.000 + IVA', '40a55': '$20.400 + IVA', '56a75': '$18.000 + IVA', '80a100': '$17.280 + IVA' }
+        ];
+
+        // =============================================
+        // CSV PARSER
+        // =============================================
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            if (lines.length < 2) return [];
+            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+            return lines.slice(1).map(line => {
+                const values = [];
+                let current = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    if (line[i] === '"') { inQuotes = !inQuotes; }
+                    else if (line[i] === ',' && !inQuotes) { values.push(current.trim()); current = ''; }
+                    else { current += line[i]; }
+                }
+                values.push(current.trim());
+                const obj = {};
+                headers.forEach((h, idx) => { obj[h] = values[idx] || ''; });
+                return obj;
+            });
+        }
+
+        // =============================================
+        // RENDER FUNCIONES
+        // =============================================
+        function renderEspacios(data) {
+            const groups = {};
+            data.forEach(row => {
+                const key = row.espacio;
+                if (!groups[key]) groups[key] = [];
+                groups[key].push(row);
+            });
+
+            Object.keys(groups).forEach(espacio => {
+                const container = document.getElementById('pricing-' + espacio);
+                if (!container) return;
+
+                container.innerHTML = groups[espacio].map(row => {
+                    const precio = row.precio || 'Consultar';
+                    return `
+                        <div class="pricing-row">
+                            <span class="pricing-row-name">${row.formato}</span>
+                            <span class="pricing-row-value">${precio}</span>
+                        </div>
+                    `;
+                }).join('');
+            });
+        }
+
+        function renderCatering(data) {
+            const tbody = document.querySelector('#catering-table tbody');
+            if (!tbody || data.length === 0) return;
+
+            tbody.innerHTML = data.map(row => `
+                <tr>
+                    <td class="service-name">${row.servicio}</td>
+                    <td>${row['20a39'] || 'Consultar'}</td>
+                    <td>${row['40a55'] || 'Consultar'}</td>
+                    <td>${row['56a75'] || 'Consultar'}</td>
+                    <td>${row['80a100'] || 'Consultar'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderError(containerId, message) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = `
+                <div class="pricing-row">
+                    <span class="pricing-row-name" style="color:var(--color-gray-500);font-style:italic;">${message}</span>
+                    <span class="pricing-row-value"></span>
+                </div>
+            `;
+        }
+
+        // =============================================
+        // DATA FETCHING
+        // =============================================
+        async function loadFromSheet(url) {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            const text = await response.text();
+            return parseCSV(text);
+        }
+
+        async function init() {
+            // Intentar cargar espacios
+            if (SHEETS_CONFIG.espacios !== 'TU_URL_HOJA_ESPACIOS_AQUI') {
+                try {
+                    const data = await loadFromSheet(SHEETS_CONFIG.espacios);
+                    renderEspacios(data);
+                } catch (e) {
+                    console.warn('Error cargando precios de espacios desde Google Sheets, usando fallback:', e);
+                    renderEspacios(FALLBACK_ESPACIOS);
+                }
+            } else {
+                // No hay URL configurada, usar fallback
+                renderEspacios(FALLBACK_ESPACIOS);
+            }
+
+            // Intentar cargar catering
+            if (SHEETS_CONFIG.catering !== 'TU_URL_HOJA_CATERING_AQUI') {
+                try {
+                    const data = await loadFromSheet(SHEETS_CONFIG.catering);
+                    renderCatering(data);
+                } catch (e) {
+                    console.warn('Error cargando precios de catering desde Google Sheets, usando fallback:', e);
+                    renderCatering(FALLBACK_CATERING);
+                }
+            } else {
+                renderCatering(FALLBACK_CATERING);
+            }
+        }
+
+        init();
+
+        // =============================================
+        // NAVBAR SCROLL EFFECT
+        // =============================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // =============================================
+        // MOBILE MENU
+        // =============================================
+        window.toggleMenu = function() {
+            document.getElementById('navLinks').classList.toggle('open');
+        };
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // =============================================
+        // FADE IN ON SCROLL (IntersectionObserver)
+        // =============================================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    })();
+    </script>
+
+</body>
+</html>
