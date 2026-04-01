@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
     <style>
         /* ============================================
            AREA TRES EVENTOS — ESTILOS PRINCIPALES
@@ -800,6 +803,187 @@
             color: var(--color-black);
         }
 
+        /* ---- PDF DOWNLOAD BUTTON ---- */
+        .pdf-download-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 22px;
+            background: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            border-radius: 100px;
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .pdf-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(0,0,0,0.3);
+        }
+
+        .pdf-download-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+            transform: none;
+        }
+
+        .pdf-download-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* ---- CONTACT FORM ---- */
+        .form-section {
+            background: var(--color-gray-50);
+        }
+
+        .form-intro {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .form-intro p {
+            color: var(--color-gray-700);
+            font-size: 1.05rem;
+            margin-top: 12px;
+        }
+
+        .contact-form {
+            max-width: 680px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-black);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            padding: 14px 16px;
+            border: 1px solid var(--color-gray-200);
+            border-radius: 12px;
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            color: var(--color-black);
+            background: var(--color-white);
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group .hint {
+            font-size: 0.8rem;
+            color: var(--color-gray-500);
+            margin-top: 2px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--color-gray-700);
+            cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--color-accent);
+            cursor: pointer;
+        }
+
+        .catering-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .catering-toggle input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--color-accent);
+            cursor: pointer;
+        }
+
+        .catering-toggle span {
+            font-size: 0.95rem;
+            color: var(--color-black);
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 40px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            border: none;
+            border-radius: 300px;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            align-self: center;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(214, 51, 108, 0.3);
+        }
+
+        @media print {
+            .pdf-download-btn { display: none; }
+            .navbar { position: relative; }
+            .fade-in { opacity: 1; transform: none; }
+        }
+
         /* ---- FADE IN ANIMATIONS ---- */
         .fade-in {
             opacity: 0;
@@ -926,7 +1110,7 @@
                 <li><a href="#sala-reuniones">Sala 301</a></li>
                 <li><a href="#catering">Catering</a></li>
                 <li><a href="#condiciones">Info</a></li>
-                <li><a href="#contacto" class="nav-cta">Contactanos</a></li>
+                <li><a href="#formulario" class="nav-cta">Contactanos</a></li>
             </ul>
         </div>
     </nav>
@@ -934,7 +1118,6 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero" style="background:linear-gradient(rgba(28,28,28,0.7),rgba(28,28,28,0.85)),url('fotos/hero-edificio.jpg') center/cover no-repeat;">
         <div class="hero-inner">
-            <div class="hero-badge">AreaTres Workplace</div>
             <h1>Organizá tu evento, a tu manera, en A3</h1>
             <p>Más de 1.000 m² de espacios dinámicos y versátiles, tanto indoor como al aire libre, en el corazón de Palermo Soho.</p>
             <p class="hero-address">
@@ -1437,16 +1620,90 @@
         </div>
     </section>
 
-    <!-- ============ CTA / CONTACTO ============ -->
-    <section id="contacto" class="cta-section fade-in">
-        <div class="section-inner" style="padding:20px 0;">
-            <h2 class="section-title">¿Querés organizar tu próximo evento con nosotros?</h2>
-            <p>Escribinos para recibir una propuesta personalizada o coordinar una visita.</p>
-            <a href="mailto:eventos@areatresworkplace.com" class="cta-email">eventos@areatresworkplace.com</a>
-            <br>
-            <a href="https://www.areatresworkplace.com" class="btn btn-white" target="_blank">Visitar areatresworkplace.com →</a>
+    <!-- ============ FORMULARIO DE CONTACTO ============ -->
+    <section id="formulario" class="form-section fade-in">
+        <div class="section-inner">
+            <div class="form-intro">
+                <span class="section-label">Contacto</span>
+                <h2 class="section-title">Hablemos!</h2>
+                <p>Contanos qué estás buscando y te ayudamos a armar una propuesta a medida.</p>
+            </div>
+
+            <form class="contact-form" action="https://formsubmit.co/eventos@areatresworkplace.com" method="POST">
+                <!-- FormSubmit config -->
+                <input type="hidden" name="_subject" value="Nueva consulta de eventos — A3 El Salvador">
+                <input type="hidden" name="_captcha" value="true">
+                <input type="hidden" name="_template" value="table">
+                <input type="text" name="_honey" style="display:none">
+
+                <div class="form-group">
+                    <label for="nombre">Nombre y Apellido *</label>
+                    <input type="text" id="nombre" name="Nombre y Apellido" required placeholder="Tu nombre completo">
+                </div>
+
+                <div class="form-group">
+                    <label for="empresa">Nombre de la empresa</label>
+                    <input type="text" id="empresa" name="Empresa" placeholder="Nombre de tu empresa u organizacion">
+                </div>
+
+                <div class="form-group">
+                    <label for="asistencia">Asistencia estimada</label>
+                    <input type="number" id="asistencia" name="Asistencia estimada" min="1" max="1000" placeholder="Cantidad de personas">
+                </div>
+
+                <div class="form-group">
+                    <label>Que espacios te gustaria conocer o cotizar?</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="Espacios" value="Basement">
+                            Basement
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="Espacios" value="Ground Floor">
+                            Ground Floor
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="Espacios" value="Jardin">
+                            Jardin
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="Espacios" value="Sala de Reuniones 301">
+                            Sala de Reuniones 301
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="Espacios" value="Aun no lo se">
+                            Aun no lo se
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Queres incluir catering en tu evento?</label>
+                    <label class="catering-toggle">
+                        <input type="checkbox" name="Incluir catering" value="Si">
+                        <span>Si, quiero incluir catering</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="tecnica">Que elementos de tecnica necesitas?</label>
+                    <textarea id="tecnica" name="Elementos de tecnica" placeholder="Contanos que necesitas: microfonos, proyectores, pantallas LED, sonido, etc."></textarea>
+                    <span class="hint">Segun el espacio solicitado, microfonos, proyectores o TV podrian estar incluidos.</span>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Enviar consulta
+                </button>
+            </form>
         </div>
     </section>
+
+    <!-- ============ PDF DOWNLOAD BUTTON ============ -->
+    <button class="pdf-download-btn" id="downloadPdf" onclick="generatePDF()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar PDF
+    </button>
 
     <!-- ============ FOOTER ============ -->
     <footer class="footer">
@@ -1463,10 +1720,16 @@
         // =============================================
         // Reemplazá con las URLs de tu Google Sheet publicada como CSV.
         // Instrucciones: Google Sheets → Archivo → Compartir → Publicar en la web → CSV
-        const SHEETS_CONFIG = {
+        window.SHEETS_CONFIG = {
             espacios: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSthYmcqJstK5LE4YBOMIMzXTYTw_POfUW02lmNPozvsuW1JKzGCGipdjwqX0YLc6V_jai3LWh0ETZA/pub?gid=0&single=true&output=csv',
             catering: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSthYmcqJstK5LE4YBOMIMzXTYTw_POfUW02lmNPozvsuW1JKzGCGipdjwqX0YLc6V_jai3LWh0ETZA/pub?gid=1684065127&single=true&output=csv'
         };
+
+        // =============================================
+        // DATOS CARGADOS (se llenan en init(), global para PDF)
+        // =============================================
+        window.loadedEspacios = null;
+        window.loadedCatering = null;
 
         // =============================================
         // PRECIOS FALLBACK (se usan si Google Sheets no carga)
@@ -1579,32 +1842,38 @@
             return parseCSV(text);
         }
 
+        function renderEspaciosError() {
+            ['basement', 'ground_floor', 'jardin', 'sala_reuniones'].forEach(id => {
+                renderError('pricing-' + id, 'Error cargando los datos. Consultanos por precios actualizados.');
+            });
+        }
+
+        function renderCateringError() {
+            const tbody = document.querySelector('#catering-table tbody');
+            if (tbody) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--color-accent);padding:24px;font-style:italic;">Error cargando los datos. Consultanos por precios actualizados.</td></tr>';
+            }
+        }
+
         async function init() {
-            // Intentar cargar espacios
-            if (SHEETS_CONFIG.espacios !== 'TU_URL_HOJA_ESPACIOS_AQUI') {
-                try {
-                    const data = await loadFromSheet(SHEETS_CONFIG.espacios);
-                    renderEspacios(data);
-                } catch (e) {
-                    console.warn('Error cargando precios de espacios desde Google Sheets, usando fallback:', e);
-                    renderEspacios(FALLBACK_ESPACIOS);
-                }
-            } else {
-                // No hay URL configurada, usar fallback
-                renderEspacios(FALLBACK_ESPACIOS);
+            // Cargar espacios
+            try {
+                const data = await loadFromSheet(SHEETS_CONFIG.espacios);
+                window.loadedEspacios = data;
+                renderEspacios(data);
+            } catch (e) {
+                console.warn('Error cargando precios de espacios:', e);
+                renderEspaciosError();
             }
 
-            // Intentar cargar catering
-            if (SHEETS_CONFIG.catering !== 'TU_URL_HOJA_CATERING_AQUI') {
-                try {
-                    const data = await loadFromSheet(SHEETS_CONFIG.catering);
-                    renderCatering(data);
-                } catch (e) {
-                    console.warn('Error cargando precios de catering desde Google Sheets, usando fallback:', e);
-                    renderCatering(FALLBACK_CATERING);
-                }
-            } else {
-                renderCatering(FALLBACK_CATERING);
+            // Cargar catering
+            try {
+                const data = await loadFromSheet(SHEETS_CONFIG.catering);
+                window.loadedCatering = data;
+                renderCatering(data);
+            } catch (e) {
+                console.warn('Error cargando precios de catering:', e);
+                renderCateringError();
             }
         }
 
@@ -1647,6 +1916,218 @@
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
     })();
+
+    // =============================================
+    // PDF GENERATION
+    // =============================================
+    function addPricingPages(pdf, isFirst) {
+        const pageWidth = 210;
+        const margin = 15;
+        const contentWidth = pageWidth - (margin * 2);
+        const accent = [214, 51, 108]; // #D6336C
+
+        if (!isFirst) pdf.addPage();
+        let y = margin;
+
+        // Site link bar
+        pdf.setFontSize(8);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setTextColor(150, 150, 150);
+        const siteUrl = window.location.origin + window.location.pathname;
+        pdf.text('Ver sitio online:', margin, y);
+        pdf.setTextColor(214, 51, 108);
+        pdf.textWithLink(siteUrl, margin + 28, y, { url: siteUrl });
+        y += 8;
+
+        // Header
+        pdf.setFillColor(28, 28, 28);
+        pdf.rect(0, y, pageWidth, 45, 'F');
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFontSize(22);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text('Eventos A3 El Salvador', margin, y + 18);
+        pdf.setFontSize(10);
+        pdf.setFont('helvetica', 'normal');
+        const fecha = new Date().toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' });
+        pdf.text('Tarifario descargado el ' + fecha, margin, y + 29);
+        y += 55;
+
+        // Tabla de espacios
+        if (window.loadedEspacios && window.loadedEspacios.length > 0) {
+            pdf.setTextColor(28, 28, 28);
+            pdf.setFontSize(14);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Precios de Espacios (por hora)', margin, y);
+            y += 4;
+
+            const espNames = { basement: 'Basement', ground_floor: 'Ground Floor', jardin: 'Jardin', sala_reuniones: 'Sala de Reuniones' };
+            const espRows = window.loadedEspacios.map(r => [espNames[r.espacio] || r.espacio, r.formato, r.precio]);
+
+            pdf.autoTable({
+                startY: y,
+                head: [['Espacio', 'Formato', 'Precio x hr']],
+                body: espRows,
+                margin: { left: margin, right: margin },
+                styles: { fontSize: 9, cellPadding: 4, font: 'helvetica' },
+                headStyles: { fillColor: accent, textColor: [255, 255, 255], fontStyle: 'bold' },
+                alternateRowStyles: { fillColor: [248, 248, 248] },
+                columnStyles: { 0: { fontStyle: 'bold', cellWidth: 40 }, 2: { halign: 'right', cellWidth: 40 } }
+            });
+            y = pdf.lastAutoTable.finalY + 12;
+        }
+
+        // Tabla de catering
+        if (window.loadedCatering && window.loadedCatering.length > 0) {
+            if (y > 220) { pdf.addPage(); y = margin; }
+
+            pdf.setTextColor(28, 28, 28);
+            pdf.setFontSize(14);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Precios de Catering (por persona)', margin, y);
+            y += 4;
+
+            const catRows = window.loadedCatering.map(r => [r.servicio, r['20a39'], r['40a55'], r['56a75'], r['80a100']]);
+
+            pdf.autoTable({
+                startY: y,
+                head: [['Servicio', '20-39 pax', '40-55 pax', '56-75 pax', '80-100 pax']],
+                body: catRows,
+                margin: { left: margin, right: margin },
+                styles: { fontSize: 8, cellPadding: 4, font: 'helvetica' },
+                headStyles: { fillColor: accent, textColor: [255, 255, 255], fontStyle: 'bold' },
+                alternateRowStyles: { fillColor: [248, 248, 248] },
+                columnStyles: { 0: { fontStyle: 'bold', cellWidth: 50 } }
+            });
+            y = pdf.lastAutoTable.finalY + 15;
+        }
+
+        // Disclaimer
+        if (y > 250) { pdf.addPage(); y = margin; }
+        pdf.setDrawColor(214, 51, 108);
+        pdf.setLineWidth(0.5);
+        pdf.line(margin, y, margin + contentWidth, y);
+        y += 8;
+        pdf.setFontSize(9);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setTextColor(214, 51, 108);
+        pdf.text('IMPORTANTE', margin, y);
+        y += 5;
+        pdf.setFont('helvetica', 'normal');
+        pdf.setTextColor(80, 80, 80);
+        pdf.text('Los precios son de referencia y podrian estar desactualizados. Contactanos para una cotizacion actualizada.', margin, y, { maxWidth: contentWidth });
+        y += 10;
+        pdf.text('Todos los precios estan expresados en pesos argentinos + IVA.', margin, y, { maxWidth: contentWidth });
+        y += 12;
+
+        // Links
+        pdf.setFontSize(8);
+        pdf.setTextColor(100, 100, 100);
+        pdf.text('Precios actualizados de espacios:', margin, y);
+        pdf.setTextColor(214, 51, 108);
+        pdf.textWithLink(SHEETS_CONFIG.espacios.replace('&output=csv', '&output=html'), margin, y + 4, { url: SHEETS_CONFIG.espacios.replace('&output=csv', '&output=html') });
+        y += 12;
+        pdf.setTextColor(100, 100, 100);
+        pdf.text('Precios actualizados de catering:', margin, y);
+        pdf.setTextColor(214, 51, 108);
+        pdf.textWithLink(SHEETS_CONFIG.catering.replace('&output=csv', '&output=html'), margin, y + 4, { url: SHEETS_CONFIG.catering.replace('&output=csv', '&output=html') });
+        y += 14;
+
+        // Contact
+        pdf.setTextColor(28, 28, 28);
+        pdf.setFontSize(10);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text('Contacto: eventos@areatresworkplace.com', margin, y);
+    }
+
+    async function generatePDF() {
+        const btn = document.getElementById('downloadPdf');
+        const originalText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Generando PDF...';
+
+        const style = document.createElement('style');
+        style.textContent = '@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}.spin{animation:spin 1s linear infinite}';
+        document.head.appendChild(style);
+
+        try {
+            document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+
+            btn.style.display = 'none';
+            const navbar = document.getElementById('navbar');
+            const navOriginalPos = navbar.style.position;
+            navbar.style.position = 'relative';
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = 210;
+            const pageHeight = 297;
+            const margin = 8;
+            const contentWidth = pageWidth - (margin * 2);
+
+            // Pricing summary pages first
+            addPricingPages(pdf, true);
+
+            // Capture visible sections (exclude form) — start on new page after pricing
+            pdf.addPage();
+            const sections = document.querySelectorAll('section:not(#formulario), .hero, footer');
+            let currentY = margin;
+            let firstPage = true;
+
+            for (const section of sections) {
+                const canvas = await html2canvas(section, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#FFFFFF',
+                    logging: false,
+                    windowWidth: 1200
+                });
+
+                const imgHeight = (canvas.height * contentWidth) / canvas.width;
+                const imgData = canvas.toDataURL('image/jpeg', 0.92);
+
+                if (!firstPage && currentY + imgHeight > pageHeight - margin) {
+                    pdf.addPage();
+                    currentY = margin;
+                }
+
+                if (imgHeight > pageHeight - (margin * 2)) {
+                    const ratio = canvas.width / contentWidth;
+                    const sourceHeight = (pageHeight - margin * 2) * ratio;
+                    let sourceY = 0;
+
+                    while (sourceY < canvas.height) {
+                        if (sourceY > 0) { pdf.addPage(); currentY = margin; }
+                        const sliceH = Math.min(sourceHeight, canvas.height - sourceY);
+                        const sliceCanvas = document.createElement('canvas');
+                        sliceCanvas.width = canvas.width;
+                        sliceCanvas.height = sliceH;
+                        sliceCanvas.getContext('2d').drawImage(canvas, 0, sourceY, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+                        const sliceImgH = (sliceH * contentWidth) / canvas.width;
+                        pdf.addImage(sliceCanvas.toDataURL('image/jpeg', 0.92), 'JPEG', margin, currentY, contentWidth, sliceImgH);
+                        currentY += sliceImgH;
+                        sourceY += sliceH;
+                    }
+                } else {
+                    pdf.addImage(imgData, 'JPEG', margin, currentY, contentWidth, imgHeight);
+                    currentY += imgHeight + 2;
+                }
+                firstPage = false;
+            }
+
+            pdf.save('Eventos-A3-El-Salvador.pdf');
+
+            navbar.style.position = navOriginalPos;
+            btn.style.display = '';
+        } catch (e) {
+            console.error('Error generando PDF:', e);
+            alert('Error generando el PDF. Intentá de nuevo.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            style.remove();
+        }
+    }
     </script>
 
 </body>
